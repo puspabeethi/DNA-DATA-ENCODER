@@ -33,8 +33,20 @@ def encoder(file_name, desired_oligo_length):
         primerRC = primers[2*n + 1]
         sequence = primerF + address[i] + payload + primerRC
         oligos.append(sequence)
-    print(len(oligos))
-    print(len(oligos[0]))
+    index = []
+    for i in range(M):
+        index.append('>oligo_' + str(i + 1))
+    print(index)
+    file_text = []
+    for j in range(M):
+        file_text.append(index[j])
+        file_text.append(oligos[j])
+    print(file_text)
+    print(len(file_text))
+    fasta_file = open("DNA_ENCODED_DATA.fasta", "w")
+    for k in range(len(file_text)):
+        fasta_file.write(file_text[k] + "\n")
+    fasta_file.close()
 
 def numberToBase(n,b):
     if n == 0:
