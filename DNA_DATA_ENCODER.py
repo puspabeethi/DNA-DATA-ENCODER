@@ -15,16 +15,16 @@ def encoder(file_name, oligo_length, primer_pair_count):
         primer = primer[::-1]
         primer = primer.replace("0", "A").replace("1", "T").replace("2", "G").replace("3", "C")
         reverse_primers.append(primer)
-    writer = pd.ExcelWriter('ForwardPrimers.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\ForwardPrimers.xlsx', engine='xlsxwriter')
     writer.save()
     df = pd.DataFrame({'Primers': forward_primers})
-    writer = pd.ExcelWriter('ForwardPrimers.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\ForwardPrimers.xlsx', engine='xlsxwriter')
     df.to_excel(writer, sheet_name=str(primer_pair_count)+' forward primers', index=False)
     writer.save()
-    writer = pd.ExcelWriter('ReversePrimers.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\ReversePrimers.xlsx', engine='xlsxwriter')
     writer.save()
     df = pd.DataFrame({'Primers': reverse_primers})
-    writer = pd.ExcelWriter('ReversePrimers.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\ReversePrimers.xlsx', engine='xlsxwriter')
     df.to_excel(writer, sheet_name=str(primer_pair_count) + ' reverse primers', index=False)
     writer.save()
 
@@ -50,13 +50,48 @@ def encoder(file_name, oligo_length, primer_pair_count):
     codebook = subCode(M)
 
     oligos = []
-    for i in range(M):
+    if M == data_size/(16 * m_p):
+        for i in range(M):
+            payload = ''
+            for j in range(m_p):
+                message = 256 * (128 * int(data[0]) + 64 * int(data[1]) + 32 * int(data[2]) + 16 * int(data[3]) + 8 * int(data[4]) + 4 * int(data[5]) + 2 * int(data[6]) + int(data[7])) + (128 * int(data[8]) + 64 * int(data[9]) + 32 * int(data[10]) + 16 * int(data[11]) + 8 * int(data[12]) + 4 * int(data[13]) + 2 * int(data[14]) + int(data[15]))
+                data = data[16:]
+                print(message, len(data))
+                payload = payload + codebook[message]
+            print(len(payload), payload)
+            n = random_primer_map[i]
+            primerF = forward_primers[n]
+            primerRC = reverse_primers_RC[n]
+            sequence = primerF + address[i] + payload + primerRC
+            oligos.append(sequence)
+        print(len(oligos), oligos)
+    else:
+        for i in range(M-1):
+            payload = ''
+            for j in range(m_p):
+                message = 256 * (128 * int(data[0]) + 64 * int(data[1]) + 32 * int(data[2]) + 16 * int(data[3]) + 8 * int(data[4]) + 4 * int(data[5]) + 2 * int(data[6]) + int(data[7])) + (128 * int(data[8]) + 64 * int(data[9]) + 32 * int(data[10]) + 16 * int(data[11]) + 8 * int(data[12]) + 4 * int(data[13]) + 2 * int(data[14]) + int(data[15]))
+                data = data[16:]
+                print(message, len(data))
+                payload = payload + codebook[message]
+            print(len(payload), payload)
+            n = random_primer_map[i]
+            primerF = forward_primers[n]
+            primerRC = reverse_primers_RC[n]
+            sequence = primerF + address[i] + payload + primerRC
+            oligos.append(sequence)
+        print(len(oligos), oligos)
+        rem = int(len(data)/16)
+        junk_num = m_p - rem
         payload = ''
-        for j in range(m_p):
-            message = 256 * (128 * int(data[0]) + 64 * int(data[1]) + 32 * int(data[2]) + 16 * int(data[3]) + 8 * int(data[4]) + 4 * int(data[5]) + 2 * int(data[6]) + int(data[7])) + (128 * int(data[8]) + 64 * int(data[9]) + 32 * int(data[10]) + 16 * int(data[11]) + 8 * int(data[12]) + 4 * int(data[13]) + 2 * int(data[14]) + int(data[15]))
+        for j in range(rem):
+            message = 256 * (128 * int(data[0]) + 64 * int(data[1]) + 32 * int(data[2]) + 16 * int(data[3]) + 8 * int(
+                data[4]) + 4 * int(data[5]) + 2 * int(data[6]) + int(data[7])) + (
+                                  128 * int(data[8]) + 64 * int(data[9]) + 32 * int(data[10]) + 16 * int(
+                              data[11]) + 8 * int(data[12]) + 4 * int(data[13]) + 2 * int(data[14]) + int(data[15]))
             data = data[16:]
             print(message, len(data))
             payload = payload + codebook[message]
+        payload = payload + Junk(junk_num)
         print(len(payload), payload)
         n = random_primer_map[i]
         primerF = forward_primers[n]
@@ -74,7 +109,7 @@ def encoder(file_name, oligo_length, primer_pair_count):
         file_text.append(oligos[j])
     print(file_text)
     print(len(file_text))
-    fasta_file = open("DNA_encoded_data.fasta", "w")
+    fasta_file = open("Output_files\DNA_encoded_data.fasta", "w")
     for k in range(len(file_text)):
         fasta_file.write(file_text[k] + "\n")
     fasta_file.close()
@@ -154,10 +189,10 @@ def addressBook(M):
         common_address = []
     for j in range(len(common_address)):
         TableData.remove(common_address[j])
-    writer = pd.ExcelWriter('AddressBook.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\AddressBook.xlsx', engine='xlsxwriter')
     writer.save()
     df = pd.DataFrame({'Address': TableData})
-    writer = pd.ExcelWriter('AddressBook.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\AddressBook.xlsx', engine='xlsxwriter')
     df.to_excel(writer, sheet_name='BlockLength ' + str(n_a), index=False)
     writer.save()
     return TableData
@@ -182,10 +217,19 @@ def subCode(M):
         common_codeword = []
     for j in range(len(common_codeword)):
         TableData.remove(common_codeword[j])
-    writer = pd.ExcelWriter('CodeBook.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\CodeBook.xlsx', engine='xlsxwriter')
     writer.save()
     df = pd.DataFrame({'CodeBook': TableData})
-    writer = pd.ExcelWriter('CodeBook.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('Output_files\CodeBook.xlsx', engine='xlsxwriter')
     df.to_excel(writer, sheet_name='Min_HammingDistance_2', index=False)
     writer.save()
     return TableData
+
+def Junk(junk_num):
+    df = pd.read_excel('puspabeethis_files\CodeBook_large.xlsx', sheet_name='Min_HammingDistance_2', header=0)
+    codebook_large = df['CodeBook_large'].tolist()
+    payload = ''
+    for i in range(junk_num):
+        payload = payload +codebook_large[65536+i]
+    print(payload)
+    return payload
