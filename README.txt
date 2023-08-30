@@ -14,9 +14,9 @@ The main.py file takes the following three arguments, that are fed into the enco
 (User needs to create a binary text file in the parent folder DNA-DATA-ENCODER-main and store the desired data in the aforementioned format in the text file.
 The data size is b bits, where b is the Column no. of the last bit in Line 1.)
 2) argument 2: the desired length of each oligo.
-(This length should be atleast 60.)
+(This length should be atleast 60).
 3) argument 3: the desired number of primer pairs P.
-(The value of P must not exceed 200.)
+(The value of P must not exceed 200).
 User needs to enter these three arguments of DNA-DATA-ENCODER.encoder function in line 6 of main.py file.
 
 The folder puspabeethis_files contains the necessary files required for the operation of the Python module.
