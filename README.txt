@@ -51,7 +51,8 @@ Obtain the binary representation of (r-2), where the leftmost bit is the MSB and
 of MSB to obtain 16-bit binary representation of (r-2). 
 As an example, if y_1 is located in the 17th row, then it corresponds to message 15, which is 0000000000001111 in 16-bit binary format.
 Repeat the same for y_2 through y_(x*M) and obtain the ordered list of messages m_1 through m_(x*M).
-5) Concatenate the obtained messages in proper order as m_1 + m_2 + ................ + m_(x*M). This is the decoded user data.
+5) Concatenate the obtained messages in proper order as m_1 + m_2 + ................ + m_(x*M).
+This is the decoded user data.
 
 
 
