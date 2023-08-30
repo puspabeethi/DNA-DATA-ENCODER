@@ -21,9 +21,9 @@ User needs to enter these three arguments of DNA-DATA-ENCODER.encoder function i
 The folder puspabeethis_files contains the necessary files required for the operation of the Python module.
 
 The folder Output_files contains a blank fasta file named DNA_encoded_data. 
-After execution of the program, the output files are stored in this folder, that comprise four excel documents: AddressBook, CodeBook, ForwardPrimers, ReversePrimers, 
-and the finally obtained DNA-encoded data which is populated in the aforementioned fasta file DNA_encoded_data.fasta
-This fasta file contains all the oligo sequences that collectively store the user data.
+After execution of the program, the output files are stored in this folder. 
+These output files are four excel documents: AddressBook, CodeBook, ForwardPrimers, ReversePrimers, and the finally obtained DNA-encoded data which is populated in the aforementioned fasta file DNA_encoded_data.fasta
+This fasta file now contains all the oligo sequences that collectively store the user data.
 
 The four excel documents in the Output_files folder are necessary for decoding the .txt file, that was encoded using DNA-DATA-ENCODER module.
 1) AddressBook contains the ordered address sequences, where the sequence in the 'n'th row of the excel sheet is used as address of 'oligo_(n-1)' in the fasta file.
