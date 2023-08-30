@@ -33,6 +33,10 @@ def encoder(file_name, oligo_length, primer_pair_count):
     data_size = len(data)
     m_p = math.ceil((oligo_length - 40) / 10) - 1
     M = math.ceil(data_size / (16 * m_p))
+    if M > 93756:
+        M = 93756
+        oligo_length = math.ceil(data_size / (16 * 93756))
+        m_p = math.ceil((oligo_length - 40) / 10) - 1
     print('data size = '+str(data_size)+' bits, number of oligos = '+str(M))
 
     oligos_per_primer = math.floor(M / primer_pair_count)
