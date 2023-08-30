@@ -43,7 +43,7 @@ Let the total number of oligos be denoted by M. Then the obtained list contains 
 concatenation of x 10-length blocks and is of the form Block1_1 + Block1_2 + ...... + Block1_x. Prepare the ordered list [Block1_1, Block1_2, ...... , Block1_x].
 3) Repeat the above step for the remaining M-1 oligos. For every successive oligo, the prepared ordered list is appended to the previously obtained ordered list. 
 For example, ordered list for 2nd oligo is appended to that for 1st oligo as [Block1_1, Block1_2, ...... , Block1_x, Block2_1, Block2_2, ...... , Block2_x]. 
-The resulting final list is [Block1_1, Block1_2, ...... , Block1_x, Block2_1, Block2_2, ...... , Block2_x, ............ ,BlockM_1, BlockM_2, ...... , BlockM_x], 
+The resulting final list is [Block1_1, Block1_2, ...... , Block1_x, Block2_1, Block2_2, ...... , Block2_x, ...... ,BlockM_1, BlockM_2, ...... , BlockM_x], 
 and comprises (x*M) number of 10-length sequences, say y_1 through y_(x*M) (as per the order).
 4) Refer CodeBook.xlsx to obtain the message corresponding to y_1. To do this, locate the row number 'r' of y_1 in CodeBook.xlsx; then the message corresponding to 
 y_1 is (r-2) in 16-bit binary format, as described next.
