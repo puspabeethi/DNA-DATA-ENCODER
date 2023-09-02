@@ -25,7 +25,7 @@ After execution of the program, the output files are stored in this folder.
 These output files are four excel documents: AddressBook, CodeBook, ForwardPrimers, ReversePrimers, and the finally obtained DNA-encoded data which is populated in the aforementioned fasta file DNA_encoded_data.fasta
 This fasta file now contains all the oligo sequences that collectively store the user data.
 
-The four excel documents in the Output_files folder are necessary for decoding the .txt file, that was encoded using DNA-DATA-ENCODER module.
+The four excel documents in the Output_files folder are necessary for decoding the .fasta file, that was encoded using DNA-DATA-ENCODER module.
 1) AddressBook contains the ordered address sequences, where the sequence in the 'n'th row of the excel sheet is used as address of 'oligo_(n-1)' in the fasta file.
 2) A message 'm' is encoded into the codeword in the '(m+2)'th row of CodeBook.xlsx, where m ranges from 0 to 65535.
 (The sequences from row number 65538 of CodeBook.xlsx are used as fillers to achieve the fixed payload length in the last oligo, when the remaining messages for the last oligo fall short of achieving the determined payload length after concatenation).
