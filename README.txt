@@ -38,10 +38,8 @@ Let the total number of oligos be denoted by M. Then the obtained list contains 
 3) Repeat the above step for the remaining M-1 oligos. For every successive oligo, the prepared ordered list is appended to the previously obtained ordered list. 
 For example, ordered list for 2nd oligo is appended to that for 1st oligo as [Block1_1, Block1_2, ...... , Block1_x, Block2_1, Block2_2, ...... , Block2_x]. 
 The resulting final list is [Block1_1, Block1_2, ...... , Block1_x, Block2_1, Block2_2, ...... , Block2_x, ...... ,BlockM_1, BlockM_2, ...... , BlockM_x], and comprises (x*M) number of 10-length sequences, say y_1 through y_(x*M) (as per the order).
-4) Refer CodeBook.xlsx to obtain the message corresponding to y_1. To do this, locate the row number 'r' of y_1 in CodeBook.xlsx; then the message corresponding to 
-y_1 is (r-2) in 16-bit binary format, as described next.
-Obtain the binary representation of (r-2), where the leftmost bit is the MSB and rightmost bit is the LSB. If (r-2) < 2^(15), add suitable number of zeros to the left 
-of MSB to obtain 16-bit binary representation of (r-2). 
+4) Refer CodeBook.xlsx to obtain the message corresponding to y_1. To do this, locate the row number 'r' of y_1 in CodeBook.xlsx; then the message corresponding to y_1 is (r-2) in 16-bit binary format, as described next.
+Obtain the binary representation of (r-2), where the leftmost bit is the MSB and rightmost bit is the LSB. If (r-2) < 2^(15), add suitable number of zeros to the left of MSB to obtain 16-bit binary representation of (r-2). 
 For example, if y_1 is located in the 17th row, then it corresponds to message 15, which is 0000000000001111 in 16-bit binary format.
 Repeat the same for y_2 through y_(x*M) and obtain the ordered list of messages m_1 through m_(x*M).
 5) Concatenate the obtained messages in proper order as m_1 + m_2 + ................ + m_(x*M).
